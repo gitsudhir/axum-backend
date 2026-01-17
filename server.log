@@ -1,0 +1,116 @@
+warning: unused import: `utoipa_swagger_ui::SwaggerUi`
+ --> src/main.rs:3:5
+  |
+3 | use utoipa_swagger_ui::SwaggerUi;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `extract::State`
+ --> src/handlers/docs.rs:1:18
+  |
+1 | use axum::{Json, extract::State};
+  |                  ^^^^^^^^^^^^^^
+
+warning: unused import: `Serialize`
+ --> src/handlers/mod.rs:4:26
+  |
+4 | use serde::{Deserialize, Serialize};
+  |                          ^^^^^^^^^
+
+warning: unused import: `uuid::Uuid`
+ --> src/handlers/mod.rs:6:5
+  |
+6 | use uuid::Uuid;
+  |     ^^^^^^^^^^
+
+warning: unused import: `DateTime`
+ --> src/handlers/mod.rs:7:14
+  |
+7 | use chrono::{DateTime, Utc};
+  |              ^^^^^^^^
+
+warning: unused variable: `params`
+  --> src/handlers/mod.rs:38:11
+   |
+38 |     Query(params): Query<PaginationParams>,
+   |           ^^^^^^ help: if this is intentional, prefix it with an underscore: `_params`
+   |
+   = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `utoipa::ToSchema`
+ --> src/handlers/mod.rs:5:5
+  |
+5 | use utoipa::ToSchema;
+  |     ^^^^^^^^^^^^^^^^
+
+warning: variable does not need to be mutable
+  --> src/config/env.rs:16:13
+   |
+16 |         let mut cfg = config::Config::builder()
+   |             ----^^^
+   |             |
+   |             help: remove this `mut`
+   |
+   = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `app_state`
+  --> src/main.rs:20:9
+   |
+20 |     let app_state = AppState { config: config.clone() };
+   |         ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_app_state`
+
+warning: fields `port` and `database_url` are never read
+ --> src/config/env.rs:6:9
+  |
+4 | pub struct Config {
+  |            ------ fields in this struct
+5 |     #[serde(default = "default_port")]
+6 |     pub port: u16,
+  |         ^^^^
+7 |     pub database_url: Option<String>,
+  |         ^^^^^^^^^^^^
+  |
+  = note: `Config` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+  = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: field `config` is never read
+ --> src/state.rs:5:9
+  |
+4 | pub struct AppState {
+  |            -------- field in this struct
+5 |     pub config: Config,
+  |         ^^^^^^
+  |
+  = note: `AppState` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+
+warning: fields `page` and `limit` are never read
+   --> src/handlers/mod.rs:154:9
+    |
+152 | pub struct PaginationParams {
+    |            ---------------- fields in this struct
+153 |     /// Page number for pagination
+154 |     pub page: Option<i32>,
+    |         ^^^^
+155 |     /// Number of items per page
+156 |     pub limit: Option<i32>,
+    |         ^^^^^
+
+warning: function `openapi_json` is never used
+ --> src/handlers/docs.rs:6:14
+  |
+6 | pub async fn openapi_json() -> Json<utoipa::openapi::OpenApi> {
+  |              ^^^^^^^^^^^^
+
+warning: function `openapi_handler` is never used
+  --> src/api.rs:45:14
+   |
+45 | pub async fn openapi_handler() -> Json<utoipa::openapi::OpenApi> {
+   |              ^^^^^^^^^^^^^^^
+
+warning: `axum-backend` (bin "axum-backend") generated 14 warnings (run `cargo fix --bin "axum-backend"` to apply 6 suggestions)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.05s
+     Running `target/debug/axum-backend`
+🚀 Server running on http://0.0.0.0:3000
+📖 API Documentation: http://0.0.0.0:3000/swagger-ui
+📄 OpenAPI JSON: http://0.0.0.0:3000/api-docs/openapi.json

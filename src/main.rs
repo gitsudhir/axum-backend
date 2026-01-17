@@ -1,13 +1,24 @@
-use std::net::SocketAddr;
-use axum::{
-    routing::get,
-    Router,
-};
+use std::net::{Ipv4Addr, SocketAddr};
+use axum::Router;
+
+mod config;
+mod state;
+mod models;
+mod handlers;
+mod routes;
+mod api;
+
+use crate::{state::AppState, config::env::Config, api::get_swagger_ui};
 
 #[tokio::main]
 async fn main() {
-    // build our application with a single route
-    let app = Router::new().route("/", get(root));
+    // Load configuration from environment
+    let config = Config::from_env().expect("Failed to load configuration");
+
+    // Build our application with routes
+    let app = Router::new()
+        .merge(routes::create_routes())
+        .merge(get_swagger_ui());
 
     // Get the port number from the environment, default to 3000
     let port: u16 = std::env::var("PORT")
@@ -15,15 +26,14 @@ async fn main() {
         .parse() // Parse the port string into a u16
         .expect("Failed to parse PORT");
 
-    // Create a socket address (IPv6 binding)
-    let address = SocketAddr::from(([0, 0, 0, 0, 0, 0, 0, 0], port));
+    // Create a socket address (IPv4 binding)
+    let address = SocketAddr::from((Ipv4Addr::UNSPECIFIED, port));
     let listener = tokio::net::TcpListener::bind(&address).await.unwrap();
+
+    println!("🚀 Server running on http://0.0.0.0:{}", port);
+    println!("📖 API Documentation: http://0.0.0.0:{}/swagger-ui", port);
+    println!("📄 OpenAPI JSON: http://0.0.0.0:{}/api-docs/openapi.json", port);
 
     // Run the app with hyper, listening on the specified address
     axum::serve(listener, app).await.unwrap();
-}
-
-// basic handler that responds with a static string
-async fn root() -> &'static str {
-    "✅ Hello World, from Axum! 🚀"
 }

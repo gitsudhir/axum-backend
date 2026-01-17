@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axum Backend - Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #3498db;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .feature-card {
+            background-color: #ecf0f1;
+            padding: 1rem;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+        .api-endpoints {
+            margin: 2rem 0;
+        }
+        .endpoint {
+            background-color: #f8f9fa;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem 0;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🚀 Axum Backend</h1>
+        <p>A minimal and fast web backend built with Rust and Axum</p>
+    </header>
+    
+    <div class="container">
+        <h2>Welcome to Axum Backend!</h2>
+        <p>This is a production-ready Rust backend built with the Axum framework, designed for performance and reliability.</p>
+        
+        <div class="features">
+            <div class="feature-card">
+                <h3>⚡ Performance</h3>
+                <p>Built with Rust for memory safety and maximum performance</p>
+            </div>
+            <div class="feature-card">
+                <h3>🔒 Safety</h3>
+                <p>Memory safe with zero-cost abstractions</p>
+            </div>
+            <div class="feature-card">
+                <h3>🌐 Async</h3>
+                <p>Powered by Tokio async runtime</p>
+            </div>
+            <div class="feature-card">
+                <h3>📚 Documentation</h3>
+                <p>Auto-generated API documentation with OpenAPI/Swagger</p>
+            </div>
+        </div>
+        
+        <h3>API Endpoints</h3>
+        <div class="api-endpoints">
+            <div class="endpoint">GET /health - Health check endpoint</div>
+            <div class="endpoint">GET /users - Get list of users</div>
+            <div class="endpoint">POST /users - Create a new user</div>
+            <div class="endpoint">GET /users/{id} - Get user by ID</div>
+            <div class="endpoint">GET /wallets/{user_id} - Get user's wallets</div>
+            <div class="endpoint">POST /transfers - Create money transfer</div>
+            <div class="endpoint">GET /swagger-ui - Interactive API documentation</div>
+        </div>
+        
+        <h3>Project Information</h3>
+        <p><strong>Version:</strong> {{ version }}</p>
+        <p><strong>Uptime:</strong> {{ uptime }}</p>
+        <p><strong>Server Time:</strong> {{ server_time }}</p>
+    </div>
+    
+    <footer>
+        <p>Built with ❤️ using Rust and Axum</p>
+        <p>Check out the <a href="/swagger-ui">API Documentation</a></p>
+    </footer>
+</body>
+</html>
