@@ -63,3 +63,31 @@ pub struct HomePageTemplate {
     pub uptime: String,
     pub server_time: String,
 }
+
+#[derive(Serialize, Deserialize, ToSchema, Clone)]
+pub struct Product {
+    /// Unique identifier for the product
+    pub id: i32,
+    /// Product name
+    pub name: String,
+    /// Product description
+    pub description: String,
+    /// Product price
+    pub price: f64,
+    /// Product category
+    pub category: String,
+    /// Product creation timestamp
+    pub created_at: DateTime<Utc>,
+}
+
+#[derive(Serialize, Deserialize, ToSchema, Clone)]
+pub struct CreateProductRequest {
+    /// Product name
+    pub name: String,
+    /// Product description
+    pub description: String,
+    /// Product price
+    pub price: f64,
+    /// Product category
+    pub category: String,
+}

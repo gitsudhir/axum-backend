@@ -10,4 +10,6 @@ pub fn create_routes() -> Router {
         .route("/users/{id}", get(handlers::get_user_by_id))
         .route("/wallets/{user_id}", get(handlers::get_user_wallets))
         .route("/transfers", post(handlers::create_transfer))
+        .route("/products", get(handlers::get_products).post(handlers::create_product))
+        .route("/products/{id}", get(handlers::get_product_by_id))
 }

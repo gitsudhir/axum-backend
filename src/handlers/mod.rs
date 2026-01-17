@@ -4,7 +4,7 @@ use axum::{Json, http::StatusCode, extract::{Path, Query}};
 use serde::Deserialize;
 use chrono::Utc;
 
-use crate::models::{HealthResponse, User, CreateUserRequest, Wallet, TransferRequest, HomePageTemplate};
+use crate::models::{HealthResponse, User, CreateUserRequest, Wallet, TransferRequest, HomePageTemplate, Product, CreateProductRequest};
 use axum::response::Html;
 use askama::Template;
 
@@ -156,6 +156,96 @@ pub async fn home_page() -> Html<String> {
     };
     
     Html(template.render().unwrap())
+}
+
+#[utoipa::path(
+    get,
+    path = "/products",
+    params(
+        ("page" = Option<i32>, Query, description = "Page number for pagination"),
+        ("limit" = Option<i32>, Query, description = "Number of items per page")
+    ),
+    responses(
+        (status = 200, description = "List of products", body = [Product]),
+        (status = 400, description = "Invalid parameters")
+    )
+)]
+pub async fn get_products(
+    Query(_params): Query<PaginationParams>,
+) -> Result<Json<Vec<Product>>, StatusCode> {
+    // In a real application, this would fetch from a database
+    let products = vec![
+        Product {
+            id: 1,
+            name: "Laptop".to_string(),
+            description: "High-performance laptop".to_string(),
+            price: 999.99,
+            category: "Electronics".to_string(),
+            created_at: Utc::now(),
+        },
+        Product {
+            id: 2,
+            name: "Mouse".to_string(),
+            description: "Wireless mouse".to_string(),
+            price: 29.99,
+            category: "Electronics".to_string(),
+            created_at: Utc::now(),
+        },
+    ];
+    
+    Ok(Json(products))
+}
+
+#[utoipa::path(
+    post,
+    path = "/products",
+    request_body = CreateProductRequest,
+    responses(
+        (status = 201, description = "Product created successfully", body = Product),
+        (status = 400, description = "Invalid request data")
+    )
+)]
+pub async fn create_product(
+    Json(payload): Json<CreateProductRequest>,
+) -> Result<Json<Product>, StatusCode> {
+    // In a real application, this would save to a database
+    let product = Product {
+        id: 1, // In real app, this would be generated
+        name: payload.name,
+        description: payload.description,
+        price: payload.price,
+        category: payload.category,
+        created_at: Utc::now(),
+    };
+    
+    Ok(Json(product))
+}
+
+#[utoipa::path(
+    get,
+    path = "/products/{id}",
+    params(
+        ("id" = i32, Path, description = "Product ID")
+    ),
+    responses(
+        (status = 200, description = "Product details", body = Product),
+        (status = 404, description = "Product not found")
+    )
+)]
+pub async fn get_product_by_id(
+    Path(id): Path<i32>,
+) -> Result<Json<Product>, StatusCode> {
+    // In a real application, this would fetch from a database
+    let product = Product {
+        id,
+        name: "Sample Product".to_string(),
+        description: "Sample product description".to_string(),
+        price: 49.99,
+        category: "General".to_string(),
+        created_at: Utc::now(),
+    };
+    
+    Ok(Json(product))
 }
 
 #[derive(Deserialize, utoipa::ToSchema)]

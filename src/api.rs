@@ -13,6 +13,9 @@ use crate::handlers;
         handlers::get_user_by_id,
         handlers::get_user_wallets,
         handlers::create_transfer,
+        handlers::get_products,
+        handlers::create_product,
+        handlers::get_product_by_id,
     ),
     components(
         schemas(
@@ -21,6 +24,8 @@ use crate::handlers;
             crate::models::CreateUserRequest,
             crate::models::Wallet,
             crate::models::TransferRequest,
+            crate::models::Product,
+            crate::models::CreateProductRequest,
             handlers::PaginationParams,
         )
     ),
